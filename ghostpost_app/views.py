@@ -5,7 +5,7 @@ from ghostpost_app.forms import PostForm
 
 
 def index(request):
-  posts = Post.objects.all().order_by('-postDate')
+  posts = Post.objects.all().order_by('-upVotes')
   return render(request, 'index.html', {"posts":posts})
 
 
@@ -20,7 +20,7 @@ def roasts(request):
 
 
 def sorted(request):
-  posts = Post.objects.order_by('-postDate')
+  posts = Post.objects.all().order_by('postDate')
   return render(request, 'index.html', {"posts":posts})
 
 
