@@ -19,10 +19,13 @@ from django.urls import path
 from ghostpost_app import views
 
 urlpatterns = [
-    path('', views.ghost_post_view, name='home'),
-    path('add_post', views.add_post_view, name='add_post'),
-    path('boasts/', views.boasts_view, name='boasts'),
-    path('roasts/', views.roasts_view, name='roasts'),
-    path('sorted/', views.sorted_by_time_view, name='sorted'),
+    path('', views.index, name='home'),
+    path('boasts/', views.boasts),
+    path('roasts/', views.roasts),
+    path('sorted/', views.sorted),
+    path('add_post/', views.add_post_view),
+    path('post/<int:id>/', views.sorted),
+    path('upvote/<int:id>/', views.upVote),
+    path('downvote/<int:id>/', views.downVote),
     path('admin/', admin.site.urls),
 ]

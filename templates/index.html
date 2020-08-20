@@ -1,5 +1,22 @@
 {% extends 'base.html' %}
 
+<!-- I got help from https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#yesno to determine if it was a Boast or Roast-->
 {% block content %}
-  <h2>This is the main page!</h2>
+  <div class="container">
+    {% for post in posts %}
+      <div>
+        <h2>{{ post.body }}</h2>
+        <ul>
+          <li>{{ post.isBoast|yesno:"Boast,Roast" }}</li>
+          <li>{{ post.postDate }}</li>
+          <span>{{ post.total }}</span>
+          <br>
+          <button>
+            <a href="/upvote/{{ post.id }}/">Up Vote</a> </button> <button> <a href="/downvote/{{ post.id }}/">Down Vote</a>
+
+          </button>
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
 {% endblock content %}
