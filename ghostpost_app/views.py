@@ -5,7 +5,7 @@ from ghostpost_app.forms import PostForm
 
 
 def index(request):
-  posts = Post.objects.all().order_by('-upVotes')
+  posts = Post.objects.all().order_by('-postDate')
   return render(request, 'index.html', {"posts":posts})
 
 
@@ -19,9 +19,10 @@ def roasts(request):
   return render(request, 'index.html', {"posts":posts})
 
 
-def sorted(request):
-  posts = Post.objects.all().order_by('postDate')
-  return render(request, 'index.html', {"posts":posts})
+def sorted_view(request):
+  posts = Post.objects.all()
+  posts = sorted(posts, key=lambda post: post.total, reverse=True)
+  return render(request, 'index.html', {"posts": posts})
 
 
 def add_post_view(request):
@@ -41,15 +42,15 @@ def add_post_view(request):
 
 
 def upVote(request, id):
-  post = Post.objects.get(id=id)
+  post = Post.objects.filter(id=id).first()
   post.upVotes += 1
   post.save()
-  return HttpResponseRedirect(reverse('home'))
+  return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def downVote(request, id):
-  post = Post.objects.get(id=id)
+  post = Post.objects.filter(id=id).first()
   post.downVotes += 1
   post.save()
-  return HttpResponseRedirect(reverse('home'))
+  return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

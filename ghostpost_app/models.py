@@ -12,7 +12,6 @@ class Post(models.Model):
   def __str__(self):
     return self.content
 
-
+  @property
   def total(self):
-    total_score = self.upVotes - self.downVotes
-    return total_score
+    return self.upVotes - self.downVotes
