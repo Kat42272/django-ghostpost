@@ -18,7 +18,7 @@ def roasts(request):
   posts = Post.objects.filter(isBoast=False).order_by('-postDate')
   return render(request, 'index.html', {"posts":posts})
 
-
+# Matt Perry helped me with this
 def sorted_view(request):
   posts = Post.objects.all()
   posts = sorted(posts, key=lambda post: post.total, reverse=True)
